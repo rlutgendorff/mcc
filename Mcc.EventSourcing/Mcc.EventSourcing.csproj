@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mcc.Cqrs\Mcc.Cqrs.csproj" />
+    <ProjectReference Include="..\Mcc.Ddd\Mcc.Ddd.csproj" />
+    <ProjectReference Include="..\Mcc.Repository\Mcc.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
