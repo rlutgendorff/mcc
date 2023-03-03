@@ -16,9 +16,9 @@ public class MongoRepository<TEntity> : IDatabaseRepository<TEntity>
         _collection = context.GetCollection<TEntity>(configuration.TableName);
     }
 
-    public async Task<TEntity> GetByIdAsync(Guid id)
+    public Task<TEntity> GetByIdAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        return GetAll().Single(x => x.Id == id);
+        return Task.Run(()=>GetAll().Single(x => x.Id == entity.Id), cancellationToken);
     }
 
     public async Task SaveAsync(TEntity entity, CancellationToken cancellationToken)

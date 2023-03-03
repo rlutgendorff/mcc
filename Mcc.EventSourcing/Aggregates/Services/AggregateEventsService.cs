@@ -1,20 +1,19 @@
-﻿namespace Mcc.EventSourcing.Aggregates.Services
+﻿namespace Mcc.EventSourcing.Aggregates.Services;
+
+public class AggregateEventsService
 {
-    internal class AggregateEventsService
+    public IEnumerable<EventWrapper> GetUncommittedEvents(BaseEventSourceAggregate aggregate)
     {
-        public IEnumerable<EventWrapper> GetUncommittedEvents(BaseEventSourceAggregate aggregate)
-        {
-            return aggregate.ChangeTracker.GetUncommittedEvents();
-        }
+        return aggregate.ChangeTracker.GetUncommittedEvents();
+    }
 
-        public void ClearUncommittedEvents(BaseEventSourceAggregate aggregate)
-        {
-            aggregate.ChangeTracker.ClearUncommittedEvents();
-        }
+    public void ClearUncommittedEvents(BaseEventSourceAggregate aggregate)
+    {
+        aggregate.ChangeTracker.ClearUncommittedEvents();
+    }
 
-        public void Apply(BaseEventSourceAggregate aggregate, EventWrapper @event, bool shouldValidate)
-        {
-            aggregate.ChangeTracker.Apply(@event, shouldValidate);
-        }
+    public void Apply(BaseEventSourceAggregate aggregate, EventWrapper @event, bool shouldValidate)
+    {
+        aggregate.ChangeTracker.Apply(@event, shouldValidate);
     }
 }

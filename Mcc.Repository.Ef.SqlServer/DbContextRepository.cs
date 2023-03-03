@@ -31,9 +31,9 @@ public class DbContextRepository<TEntity> : IDatabaseRepository<TEntity>
         return _dbSet;
     }
 
-    public Task<TEntity> GetByIdAsync(Guid id)
+    public Task<TEntity> GetByIdAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        return _dbSet.SingleAsync(x => x.Id == id);
+        return _dbSet.SingleAsync(x => x.Id == entity.Id, cancellationToken);
     }
 
     public Task SaveAsync(TEntity entity, CancellationToken cancellationToken)
