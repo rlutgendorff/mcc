@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mcc.Di\Mcc.Di.csproj" />
-    <ProjectReference Include="..\Mcc\Mcc.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mcc.Ddd\Mcc.Ddd.csproj" />
   </ItemGroup>
 
 </Project>

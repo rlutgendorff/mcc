@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="SimpleInjector" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mcc.Di\Mcc.Di.csproj" />
-    <ProjectReference Include="..\Mcc\Mcc.csproj" />
   </ItemGroup>
 
 </Project>

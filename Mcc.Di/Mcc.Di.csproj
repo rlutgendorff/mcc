@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Mcc.Di\Mcc.Di.csproj" />
-    <ProjectReference Include="..\Mcc\Mcc.csproj" />
-  </ItemGroup>
-
 </Project>

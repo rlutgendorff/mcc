@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc", "Mcc\Mcc.csproj", "{7BAA699F-6A6E-49CB-A11A-CF15864B0AF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc", "Mcc\Mcc.csproj", "{7BAA699F-6A6E-49CB-A11A-CF15864B0AF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Cqrs", "Mcc.Cqrs\Mcc.Cqrs.csproj", "{9B2AD579-0A06-4A5C-BC54-CCD2875CD21A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Cqrs", "Mcc.Cqrs\Mcc.Cqrs.csproj", "{9B2AD579-0A06-4A5C-BC54-CCD2875CD21A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Ddd", "Mcc.Ddd\Mcc.Ddd.csproj", "{2EC1A9C9-4C3D-4BA9-899F-5F5B888E51C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Ddd", "Mcc.Ddd\Mcc.Ddd.csproj", "{2EC1A9C9-4C3D-4BA9-899F-5F5B888E51C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository", "Mcc.Repository\Mcc.Repository.csproj", "{53239F36-475A-4B80-8E1C-A2ED1E9140AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Repository", "Mcc.Repository\Mcc.Repository.csproj", "{53239F36-475A-4B80-8E1C-A2ED1E9140AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.EventSourcing", "Mcc.EventSourcing\Mcc.EventSourcing.csproj", "{5A50C196-E4D2-4F5A-BCB8-48B68DE770A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.EventSourcing", "Mcc.EventSourcing\Mcc.EventSourcing.csproj", "{5A50C196-E4D2-4F5A-BCB8-48B68DE770A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Di", "Mcc.Di\Mcc.Di.csproj", "{A364E38A-1607-4920-BB0B-CECE03B08584}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Di.SimpleInjector", "Mcc.Di.SimpleInjector\Mcc.Di.SimpleInjector.csproj", "{AACDB358-4650-45E3-8F2D-FA2045A430A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.Mongo", "Mcc.Repository.Mongo\Mcc.Repository.Mongo.csproj", "{B9C226AE-40BE-464C-8259-1F2EA639AFAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.Ef.SqlServer", "Mcc.Repository.Ef.SqlServer\Mcc.Repository.Ef.SqlServer.csproj", "{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +47,22 @@ Global
 		{5A50C196-E4D2-4F5A-BCB8-48B68DE770A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A50C196-E4D2-4F5A-BCB8-48B68DE770A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A50C196-E4D2-4F5A-BCB8-48B68DE770A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A364E38A-1607-4920-BB0B-CECE03B08584}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A364E38A-1607-4920-BB0B-CECE03B08584}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A364E38A-1607-4920-BB0B-CECE03B08584}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A364E38A-1607-4920-BB0B-CECE03B08584}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AACDB358-4650-45E3-8F2D-FA2045A430A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AACDB358-4650-45E3-8F2D-FA2045A430A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AACDB358-4650-45E3-8F2D-FA2045A430A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AACDB358-4650-45E3-8F2D-FA2045A430A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9C226AE-40BE-464C-8259-1F2EA639AFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9C226AE-40BE-464C-8259-1F2EA639AFAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9C226AE-40BE-464C-8259-1F2EA639AFAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9C226AE-40BE-464C-8259-1F2EA639AFAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
