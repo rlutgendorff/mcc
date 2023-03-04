@@ -103,7 +103,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
             var wrapper = new EventWrapper
             {
                 AggregateId = new AggregateId(_entity.GetType(), _entity.Id),
-                AggregateVersion = _entity.Version++,
+                AggregateVersion = ++_entity.Version,
                 Event = command,
                 Metadata = metadata
             };

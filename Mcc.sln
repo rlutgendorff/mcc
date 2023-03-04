@@ -13,15 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Repository", "Mcc.Repos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.EventSourcing", "Mcc.EventSourcing\Mcc.EventSourcing.csproj", "{5A50C196-E4D2-4F5A-BCB8-48B68DE770A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Di", "Mcc.Di\Mcc.Di.csproj", "{A364E38A-1607-4920-BB0B-CECE03B08584}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Di", "Mcc.Di\Mcc.Di.csproj", "{A364E38A-1607-4920-BB0B-CECE03B08584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Di.SimpleInjector", "Mcc.Di.SimpleInjector\Mcc.Di.SimpleInjector.csproj", "{AACDB358-4650-45E3-8F2D-FA2045A430A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Di.SimpleInjector", "Mcc.Di.SimpleInjector\Mcc.Di.SimpleInjector.csproj", "{AACDB358-4650-45E3-8F2D-FA2045A430A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.Mongo", "Mcc.Repository.Mongo\Mcc.Repository.Mongo.csproj", "{B9C226AE-40BE-464C-8259-1F2EA639AFAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Repository.Mongo", "Mcc.Repository.Mongo\Mcc.Repository.Mongo.csproj", "{B9C226AE-40BE-464C-8259-1F2EA639AFAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.Ef.SqlServer", "Mcc.Repository.Ef.SqlServer\Mcc.Repository.Ef.SqlServer.csproj", "{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Repository.Ef.SqlServer", "Mcc.Repository.Ef.SqlServer\Mcc.Repository.Ef.SqlServer.csproj", "{D06137B3-03E9-4501-952F-D9F3A6BAF6B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.EventStore", "Mcc.Repository.EventStore\Mcc.Repository.EventStore.csproj", "{6F21851D-0DAE-481C-8BCA-AD64EE4235FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.Repository.EventStore", "Mcc.Repository.EventStore\Mcc.Repository.EventStore.csproj", "{6F21851D-0DAE-481C-8BCA-AD64EE4235FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.MartenDb", "Mcc.Repository.MartenDb\Mcc.Repository.MartenDb.csproj", "{386D5FE5-FB26-4CBE-B140-EF88663E7924}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{6F21851D-0DAE-481C-8BCA-AD64EE4235FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F21851D-0DAE-481C-8BCA-AD64EE4235FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F21851D-0DAE-481C-8BCA-AD64EE4235FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{386D5FE5-FB26-4CBE-B140-EF88663E7924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{386D5FE5-FB26-4CBE-B140-EF88663E7924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{386D5FE5-FB26-4CBE-B140-EF88663E7924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{386D5FE5-FB26-4CBE-B140-EF88663E7924}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

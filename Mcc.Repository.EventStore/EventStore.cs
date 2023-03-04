@@ -71,7 +71,7 @@ public class EventStore : IEventStore
         return ret;
     }
 
-    public async Task AppendEventAsync(EventWrapper @event, CancellationToken cancellationToken)
+    public Task AppendEventAsync(EventWrapper @event, CancellationToken cancellationToken)
     {
         using (_logger.BeginScope(("object", @event.ToJson())))
         {
@@ -85,7 +85,7 @@ public class EventStore : IEventStore
                 Serialize(@event.Event),
                 Encoding.UTF8.GetBytes(@event.Metadata.Metadata.ToJson()));
 
-            await _eventStore.AppendToStreamAsync(
+            return _eventStore.AppendToStreamAsync(
                 @event.AggregateId.ToString(),
                 @event.AggregateVersion ?? StreamRevision.None,
                 new[] { eventData },

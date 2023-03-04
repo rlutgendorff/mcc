@@ -1,12 +1,12 @@
-﻿using Mcc.Ddd;
-using Mcc.EventSourcing.Aggregates;
+﻿using Mcc.EventSourcing.Aggregates;
 using Mcc.EventSourcing.Aggregates.Services;
 using Mcc.EventSourcing.Cqrs.Commands;
 using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.Stores;
+using Mcc.Repository;
 
-namespace Mcc.Repository.EventStore;
+namespace Mcc.EventSourcing.Repositories;
 
 public class EventStoreRepository<TEntity> : IRepository<TEntity>
     where TEntity : BaseEventSourceAggregate
