@@ -1,6 +1,6 @@
-﻿namespace Mcc.EventSourcing.Views;
+﻿namespace Mcc.EventSourcing.Projections;
 
-public interface IViewRebuilder<TEntity>
+public interface IProjectionRebuilder<TEntity>
 {
     Task RebuildAsync(Action<EventWrapper> action, CancellationToken cancellationToken);
 }

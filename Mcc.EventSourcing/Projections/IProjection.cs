@@ -1,6 +1,6 @@
-﻿namespace Mcc.EventSourcing.Views;
+﻿namespace Mcc.EventSourcing.Projections;
 
-public interface IView<out TEntity>
+public interface IProjection<out TEntity>
 {
     IQueryable<TEntity> Get();
 

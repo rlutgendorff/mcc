@@ -85,9 +85,16 @@ public class EventStore : IEventStore
                 Serialize(@event.Event),
                 Encoding.UTF8.GetBytes(@event.Metadata.Metadata.ToJson()));
 
+            StreamRevision version = StreamRevision.None;
+
+            if (@event.AggregateVersion != null)
+            {
+                version = (@event.AggregateVersion.Value - 1);
+            }
+
             return _eventStore.AppendToStreamAsync(
                 @event.AggregateId.ToString(),
-                @event.AggregateVersion ?? StreamRevision.None,
+                version,
                 new[] { eventData },
                 cancellationToken: cancellationToken);
         }
