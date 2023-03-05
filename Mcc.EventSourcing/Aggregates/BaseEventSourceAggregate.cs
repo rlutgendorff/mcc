@@ -5,6 +5,7 @@ using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.EventSourcing.Cqrs.Queries;
 using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.Validations;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Aggregates;
 
@@ -16,13 +17,13 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
 
     public void Delete(DeleteNotification delete)
     {
-        ChangeTracker.AddUncommittedEvent(delete, new EventMetadata { Id = Id });
+        ChangeTracker.AddUncommittedEvent(delete, new EventMetadata { Id = Id, TypeName = delete.GetType().AssemblyQualifiedName});
     }
 
     //TODO make protected
     public void AddEvent(ICommand command)
     {
-        var metadata = new EventMetadata { Id = Id };
+        var metadata = new EventMetadata { Id = Id, TypeName = command.GetType().AssemblyQualifiedName};
 
         var wrapper = ChangeTracker.AddUncommittedEvent(command, metadata);
         ChangeTracker.Apply(wrapper);

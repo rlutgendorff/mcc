@@ -1,5 +1,6 @@
 ﻿using Mcc.Cqrs.Commands;
 using Mcc.EventSourcing.Aggregates;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing;
 
@@ -8,7 +9,6 @@ public class EventWrapper
     public EventWrapper()
     {
         EventId = Guid.NewGuid();
-        Metadata = new();
     }
 
     public Guid EventId { get; set; }
@@ -19,5 +19,5 @@ public class EventWrapper
 
     public ICommand Event { get; set; }
 
-    public EventMetadata Metadata { get; set; }
+    public required EventMetadata Metadata { get; set; }
 }

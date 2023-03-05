@@ -6,6 +6,7 @@ using Mcc.EventSourcing;
 using Mcc.EventSourcing.Aggregates;
 using Mcc.EventSourcing.Stores;
 using Mcc.Extensions;
+using Mcc.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -109,7 +110,9 @@ public class EventStore : IEventStore
 
     private EventWrapper CreateWrapper(ResolvedEvent resolvedEvent)
     {
-        var @event = Deserialize(resolvedEvent.Event.EventType, resolvedEvent.Event.Data.ToArray());
+        var type = _converter.CreateType(resolvedEvent.Event.EventType);
+
+        var @event = Deserialize(type, resolvedEvent.Event.Data.ToArray());
 
         var aggregateId = new AggregateId(resolvedEvent.OriginalStreamId);
 
@@ -122,15 +125,15 @@ public class EventStore : IEventStore
             Metadata = new EventMetadata
             {
                 Id = aggregateId.Id,
+                TypeName = type.AssemblyQualifiedName,
                 Metadata = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(Encoding.UTF8.GetString(resolvedEvent.Event.Metadata.ToArray()))!
             }
         };
     }
 
-    private ICommand Deserialize(string eventType, byte[] data)
+    private ICommand Deserialize(Type eventType, byte[] data)
     {
         var utf8Data = Encoding.UTF8.GetString(data);
-        var type = _converter.CreateType(eventType);
 
         using (_logger.BeginScope(new Dictionary<string, object>
                {
@@ -140,7 +143,7 @@ public class EventStore : IEventStore
         {
             _logger.LogDebug("Try to deserialize data");
 
-            var result = (ICommand)JsonSerializer.Deserialize(utf8Data, type)!;
+            var result = (ICommand)JsonSerializer.Deserialize(utf8Data, eventType)!;
 
             _logger.LogDebug("Deserialize successful");
 

@@ -2,7 +2,7 @@
 {
     public class MongoOptions
     {
-        public const string key = "mongo";
+        public const string Key = "mongo";
         public string ConnectionString { get; set; }
         public string Database { get; set; }
     }

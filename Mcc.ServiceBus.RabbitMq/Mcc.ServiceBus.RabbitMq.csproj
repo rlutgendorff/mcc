@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mcc.Cqrs\Mcc.Cqrs.csproj" />
-    <ProjectReference Include="..\Mcc.Ddd\Mcc.Ddd.csproj" />
-    <ProjectReference Include="..\Mcc.Repository\Mcc.Repository.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Mcc.ServiceBus\Mcc.ServiceBus.csproj" />
+    <ProjectReference Include="..\Mcc\Mcc.csproj" />
   </ItemGroup>
 
 </Project>

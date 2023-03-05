@@ -3,6 +3,7 @@ using Marten.Events;
 using Mcc.Cqrs.Commands;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Aggregates;
+using Mcc.ServiceBus;
 using IEventStore = Mcc.EventSourcing.Stores.IEventStore;
 
 namespace Mcc.Repository.MartenDb;
@@ -89,6 +90,7 @@ public class MartenDbEventStore : IEventStore
             Metadata = new EventMetadata
             {
                 Id = @event.StreamId,
+                TypeName = @event.EventType.AssemblyQualifiedName,
                 Metadata = new Dictionary<string, string>()
             }
         };

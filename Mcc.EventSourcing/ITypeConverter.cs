@@ -1,4 +1,4 @@
-﻿namespace Mcc.Repository.EventStore;
+﻿namespace Mcc.EventSourcing;
 
 public interface ITypeConverter
 {
