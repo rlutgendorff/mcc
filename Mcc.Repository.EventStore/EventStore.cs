@@ -58,14 +58,16 @@ public class EventStore : IEventStore
             {
                 _logger.LogDebug($"ResolvedEvent: {resolvedEvent.ToJson()}");
 
-                if (resolvedEvent.Event.EventType.StartsWith('$')) continue;
-
+               
                 var wrapper = CreateWrapper(resolvedEvent);
 
-                ret.Enqueue(wrapper);
+                if (wrapper != null)
+                {
+                    ret.Enqueue(wrapper);
 
-                _logger.LogDebug("Added wrapper to queue");
-                _logger.LogDebug($"Wrapper: {wrapper.ToJson()}");
+                    _logger.LogDebug("Added wrapper to queue");
+                    _logger.LogDebug($"Wrapper: {wrapper.ToJson()}");
+                }
             }
         }
 
@@ -108,9 +110,11 @@ public class EventStore : IEventStore
         await _eventStore.TombstoneAsync(id.ToString(), StreamState.Any, cancellationToken: cancellationToken);
     }
 
-    private EventWrapper CreateWrapper(ResolvedEvent resolvedEvent)
+    private EventWrapper? CreateWrapper(ResolvedEvent resolvedEvent)
     {
         var type = _converter.CreateType(resolvedEvent.Event.EventType);
+
+        if (type == null) return null;
 
         var @event = Deserialize(type, resolvedEvent.Event.Data.ToArray());
 

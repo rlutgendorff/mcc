@@ -24,7 +24,7 @@ public class RabbitMqChannelFactory
 
         foreach (var queue in settings.Queues)
         {
-            _channel.QueueDeclare(queue.Name, true);
+            _channel.QueueDeclare(queue.Name, true, false, autoDelete: false);
 
             foreach (var binding in queue.Bindings)
             {

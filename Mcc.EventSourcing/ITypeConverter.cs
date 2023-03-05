@@ -2,5 +2,5 @@
 
 public interface ITypeConverter
 {
-    Type CreateType(string type);
+    Type? CreateType(string type);
 }
