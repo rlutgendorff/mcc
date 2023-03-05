@@ -10,9 +10,10 @@ public class EventReceivedService
     private readonly IEventSourcingProcessor _processor;
     private readonly ITypeConverter _converter;
 
-    public EventReceivedService(IEventReceiver receiver, IEventSourcingProcessor processor)
+    public EventReceivedService(IEventReceiver receiver, IEventSourcingProcessor processor, ITypeConverter converter)
     {
         _processor = processor;
+        _converter = converter;
         receiver.EventReceived += Receiver_EventReceived;
     }
 
