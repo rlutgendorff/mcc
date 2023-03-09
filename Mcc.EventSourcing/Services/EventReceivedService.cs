@@ -21,7 +21,6 @@ public class EventReceivedService
     {
         var type = _converter.CreateType(e.Message.Metadata.TypeName);
 
-
         var command = (ICommand)JsonSerializer.Deserialize(e.Message.Data, type)!;
 
         _processor.Notify(command, CancellationToken.None, e.Message.Metadata);

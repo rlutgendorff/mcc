@@ -28,18 +28,15 @@ public class EventStoreRepository<TEntity> : IRepository<TEntity>
 
     public async Task SaveAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        var notifications = new List<Task>();
         var events = _eventService.GetUncommittedEvents(entity);
 
         foreach (var uncommittedEvent in events)
         {
             await _eventStore.AppendEventAsync(uncommittedEvent, cancellationToken);
-            _publisher.Publish(entity.GetType().Name,
+            _publisher.Publish(entity.GetType().Name, uncommittedEvent.Event.GetType().Name,
                 new Message { Data = uncommittedEvent.Event.ToJson(), Metadata = uncommittedEvent.Metadata });
-            notifications.Add(_processor.Notify(uncommittedEvent.Event, cancellationToken, uncommittedEvent.Metadata));
         }
 
-        Task.WaitAll(notifications.ToArray(), cancellationToken);
 
         _eventService.ClearUncommittedEvents(entity);
     }

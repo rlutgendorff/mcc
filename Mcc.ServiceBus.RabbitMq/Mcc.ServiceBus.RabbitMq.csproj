@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Mcc.Di\Mcc.Di.csproj" />
     <ProjectReference Include="..\Mcc.ServiceBus\Mcc.ServiceBus.csproj" />
     <ProjectReference Include="..\Mcc\Mcc.csproj" />
   </ItemGroup>

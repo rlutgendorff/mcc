@@ -2,5 +2,5 @@
 
 public interface IEventPublisher
 {
-    public void Publish(string exchange, Message obj);
+    public void Publish(string exchange, string routingKey, Message obj);
 }

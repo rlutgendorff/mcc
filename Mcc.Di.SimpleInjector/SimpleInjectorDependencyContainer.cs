@@ -1,12 +1,13 @@
-﻿using SimpleInjector;
+﻿using SimpleInjector.Lifestyles;
+using Si = SimpleInjector;
 
 namespace Mcc.Di.SimpleInjector;
 
 public class DependencyContainer : IDependencyContainer
 {
-    private readonly Container _container;
+    private readonly Si.Container _container;
 
-    public DependencyContainer(Container container)
+    public DependencyContainer(Si.Container container)
     {
         _container = container;
     }
@@ -31,5 +32,26 @@ public class DependencyContainer : IDependencyContainer
     public IEnumerable<object> GetInstances(Type type)
     {
         return _container.GetAllInstances(type);
+    }
+
+    public IDependencyScope CreateScope()
+    {
+        var scope = AsyncScopedLifestyle.BeginScope(_container);
+        return new DependencyScope(scope);
+    }
+}
+
+public class DependencyScope : IDependencyScope
+{
+    private readonly Si.Scope _scope;
+
+    public DependencyScope(Si.Scope scope)
+    {
+        _scope = scope;
+    }
+
+    public void Dispose()
+    {
+        _scope.Dispose();
     }
 }

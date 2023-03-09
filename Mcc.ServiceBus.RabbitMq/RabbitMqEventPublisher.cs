@@ -13,10 +13,10 @@ public class RabbitMqEventPublisher : IEventPublisher
         _channel = factory.Create();
     }
 
-    public void Publish(string exchange, Message obj)
+    public void Publish(string exchange, string routingKey, Message obj)
     {
         var message = Encoding.UTF8.GetBytes(obj.ToJson());
 
-        _channel.BasicPublish(exchange, obj.Data.GetType().Name, null, message);
+        _channel.BasicPublish(exchange, routingKey, null, message);
     }
 }
