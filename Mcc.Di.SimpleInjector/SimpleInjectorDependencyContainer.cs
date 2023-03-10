@@ -3,11 +3,11 @@ using Si = SimpleInjector;
 
 namespace Mcc.Di.SimpleInjector;
 
-public class DependencyContainer : IDependencyContainer
+public class SimpleInjectorDependencyContainer : IDependencyContainer
 {
     private readonly Si.Container _container;
 
-    public DependencyContainer(Si.Container container)
+    public SimpleInjectorDependencyContainer(Si.Container container)
     {
         _container = container;
     }
@@ -37,21 +37,6 @@ public class DependencyContainer : IDependencyContainer
     public IDependencyScope CreateScope()
     {
         var scope = AsyncScopedLifestyle.BeginScope(_container);
-        return new DependencyScope(scope);
-    }
-}
-
-public class DependencyScope : IDependencyScope
-{
-    private readonly Si.Scope _scope;
-
-    public DependencyScope(Si.Scope scope)
-    {
-        _scope = scope;
-    }
-
-    public void Dispose()
-    {
-        _scope.Dispose();
+        return new SimpleInjectorDependencyScope(scope);
     }
 }

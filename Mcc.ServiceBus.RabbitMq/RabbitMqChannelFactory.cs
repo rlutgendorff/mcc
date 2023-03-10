@@ -17,12 +17,12 @@ public class RabbitMqChannelFactory
         var connection = factory.CreateConnection();
         _channel = connection.CreateModel();
 
-        foreach (var exchange in settings.Exchanges)
+        foreach (var exchange in settings.Exchanges?? new List<RabbitMqExchange>())
         {
             _channel.ExchangeDeclare(exchange.Name, exchange.Type, true);
         }
 
-        foreach (var queue in settings.Queues)
+        foreach (var queue in settings.Queues ?? new List<RabbitMqQueue>())
         {
             _channel.QueueDeclare(queue.Name, true, false, autoDelete: false);
 

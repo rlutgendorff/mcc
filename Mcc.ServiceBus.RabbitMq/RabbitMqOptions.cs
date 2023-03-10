@@ -8,8 +8,8 @@ public class RabbitMqOptions
     public string Username { get; set; }
     public string Password { get; set; }
 
-    public List<RabbitMqExchange> Exchanges { get; set; }
-    public List<RabbitMqQueue> Queues { get; set; }
+    public List<RabbitMqExchange>? Exchanges { get; set; }
+    public List<RabbitMqQueue>? Queues { get; set; }
 }
 
 public class RabbitMqExchange
