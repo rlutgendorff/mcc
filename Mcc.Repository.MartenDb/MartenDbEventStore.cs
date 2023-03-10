@@ -85,7 +85,7 @@ public class MartenDbEventStore : IEventStore
         {
             AggregateId = aggregateId,
             AggregateVersion = (ulong)@event.Version,
-            Event = (ICommand)@event.Data,
+            Event = (EventSourcing.Cqrs.IEvent)@event.Data,
             EventId = @event.Id,
             Metadata = new EventMetadata
             {

@@ -1,5 +1,6 @@
 ﻿using Mcc.Cqrs.Commands;
 using Mcc.Ddd;
+using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
 using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.EventSourcing.Cqrs.Queries;
@@ -21,11 +22,11 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
     }
 
     //TODO make protected
-    public void AddEvent(ICommand command)
+    public void AddEvent(IEvent @event)
     {
-        var metadata = new EventMetadata { Id = Id, TypeName = command.GetType().AssemblyQualifiedName};
+        var metadata = new EventMetadata { Id = Id, TypeName = @event.GetType().AssemblyQualifiedName};
 
-        var wrapper = ChangeTracker.AddUncommittedEvent(command, metadata);
+        var wrapper = ChangeTracker.AddUncommittedEvent(@event, metadata);
         ChangeTracker.Apply(wrapper);
     }
 
@@ -99,7 +100,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
             _events.Clear();
         }
 
-        public EventWrapper AddUncommittedEvent(ICommand command, EventMetadata metadata)
+        public EventWrapper AddUncommittedEvent(IEvent command, EventMetadata metadata)
         {
             var wrapper = new EventWrapper
             {

@@ -3,8 +3,8 @@ using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Cqrs;
 
-public interface INotificationHandler<in TCommand>
-    where TCommand : ICommand
+public interface INotificationHandler<in TEvent>
+    where TEvent : IEvent
 {
-    Task HandleAsync(TCommand command, CancellationToken cancellationToken, EventMetadata metadata);
+    Task HandleAsync(TEvent command, CancellationToken cancellationToken, EventMetadata metadata);
 }

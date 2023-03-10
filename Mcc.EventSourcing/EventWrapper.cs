@@ -1,5 +1,6 @@
 ﻿using Mcc.Cqrs.Commands;
 using Mcc.EventSourcing.Aggregates;
+using Mcc.EventSourcing.Cqrs;
 using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing;
@@ -17,7 +18,7 @@ public class EventWrapper
 
     public ulong? AggregateVersion { get; set; }
 
-    public ICommand Event { get; set; }
+    public IEvent Event { get; set; }
 
     public required EventMetadata Metadata { get; set; }
 }

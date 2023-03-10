@@ -3,7 +3,7 @@ using Mcc.Ddd;
 
 namespace Mcc.EventSourcing.Cqrs.Commands;
 
-public class DeleteNotification : ICommand
+public class DeleteNotification : IEvent
 {
     public Guid Id { get; set; }
 }

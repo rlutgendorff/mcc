@@ -13,7 +13,7 @@ public class EventSourcingProcessor : Processor, IEventSourcingProcessor
     {
     }
 
-    public Task Notify(ICommand command, CancellationToken cancellationToken, EventMetadata metadata)
+    public Task Notify(IEvent command, CancellationToken cancellationToken, EventMetadata metadata)
     {
         var type = typeof(INotificationHandler<>).MakeGenericType(command.GetType());
 
@@ -26,15 +26,15 @@ public class EventSourcingProcessor : Processor, IEventSourcingProcessor
         return Task.WhenAll(notifications);
     }
 
-    public ValidationStates ExecuteEvent<TEntity, TCommand>(TEntity entity, TCommand @event, bool shouldValidate)
+    public ValidationStates ExecuteEvent<TEntity, TEvent>(TEntity entity, TEvent @event, bool shouldValidate)
         where TEntity : class, IAggregate
-        where TCommand : class, ICommand
+        where TEvent : class, IEvent
     {
         var validations = new ValidationStates();
 
         if (shouldValidate)
         {
-            var validators = Container.GetInstances<IPreExecuteValidator<TEntity, TCommand>>();
+            var validators = Container.GetInstances<IPreExecuteValidator<TEntity, TEvent>>();
 
             foreach (var preExecuteValidator in validators)
             {
@@ -47,7 +47,7 @@ public class EventSourcingProcessor : Processor, IEventSourcingProcessor
 
         if (validations.IsValid)
         {
-            var handler = Container.GetInstance<IEventHandler<TEntity, TCommand>>();
+            var handler = Container.GetInstance<IEventHandler<TEntity, TEvent>>();
 
             handler.Handle(entity, @event);
         }

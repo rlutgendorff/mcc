@@ -1,13 +1,12 @@
-﻿using Mcc.Cqrs.Commands;
-using Mcc.Ddd;
+﻿using Mcc.Ddd;
 using Mcc.EventSourcing.Validations;
 
 namespace Mcc.EventSourcing.Cqrs;
 
-public interface IPreExecuteValidator<in TEntity, in TCommand>
+public interface IPreExecuteValidator<in TEntity, in TEvent>
     where TEntity : IAggregate
-    where TCommand : ICommand
+    where TEvent : IEvent
 {
-    bool ShouldValidate(TEntity entity, TCommand @event);
-    ValidationState Validate(TEntity entity, TCommand @event);
+    bool ShouldValidate(TEntity entity, TEvent @event);
+    ValidationState Validate(TEntity entity, TEvent @event);
 }

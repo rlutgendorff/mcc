@@ -3,9 +3,9 @@ using Mcc.Ddd;
 
 namespace Mcc.EventSourcing.Cqrs;
 
-public interface IEventHandler<in TEntity, in TCommand>
+public interface IEventHandler<in TEntity, in TEvent>
     where TEntity : class, IAggregate
-    where TCommand : class, ICommand
+    where TEvent : class, IEvent
 {
-    public void Handle(TEntity entity, TCommand @event);
+    public void Handle(TEntity entity, TEvent @event);
 }
