@@ -2,7 +2,7 @@
 
 public interface IEventReceiver
 {
-    event EventHandler<EventReceivedEventArgs> EventReceived;
+    void Subscibe(Func<EventReceivedEventArgs, Task> action);
 }
 
 public class EventReceivedEventArgs : EventArgs

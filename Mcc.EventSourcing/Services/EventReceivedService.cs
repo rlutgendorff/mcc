@@ -1,8 +1,8 @@
-﻿using Mcc.Cqrs.Commands;
-using Mcc.EventSourcing.Cqrs.Processors;
+﻿using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.ServiceBus;
 using System.Text.Json;
 using Mcc.EventSourcing.Cqrs;
+using Mcc.Di;
 
 namespace Mcc.EventSourcing.Services;
 
@@ -15,15 +15,15 @@ public class EventReceivedService
     {
         _processor = processor;
         _converter = converter;
-        receiver.EventReceived += Receiver_EventReceived;
+        receiver.Subscibe(Receiver_EventReceived);
     }
 
-    private void Receiver_EventReceived(object? sender, EventReceivedEventArgs e)
+    private Task Receiver_EventReceived(EventReceivedEventArgs e)
     {
         var type = _converter.CreateType(e.Message.Metadata.TypeName);
 
         var command = (IEvent)JsonSerializer.Deserialize(e.Message.Data, type)!;
 
-        _processor.Notify(command, CancellationToken.None, e.Message.Metadata);
+        return _processor.Notify(command, CancellationToken.None, e.Message.Metadata);
     }
 }
