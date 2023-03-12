@@ -1,6 +1,7 @@
-﻿using Marten;
+﻿using System.Data;
+using Marten;
 using Marten.Events;
-using Mcc.Cqrs.Commands;
+using Marten.Services;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Aggregates;
 using Mcc.ServiceBus;
@@ -12,9 +13,9 @@ public class MartenDbEventStore : IEventStore
 {
     private readonly IDocumentSession _session;
 
-    public MartenDbEventStore(MartenDbClientFactory martenDbClientFactory)
+    public MartenDbEventStore(IDocumentStore store)
     {
-        _session = martenDbClientFactory.Create();
+        _session = store.LightweightSession();
     }
 
     public async Task<IEnumerable<EventWrapper>> ReadEventsAsync(AggregateId id, CancellationToken cancellationToken)
@@ -35,9 +36,8 @@ public class MartenDbEventStore : IEventStore
 
     public Task AppendEventAsync(EventWrapper @event, CancellationToken cancellationToken)
     {
-        var state = _session.Events.FetchStreamState(@event.AggregateId.Id);
 
-        if (state != null)
+        if (@event.AggregateVersion != null)
         {
             _session.Events.Append(@event.AggregateId.Id, (long)@event.AggregateVersion , @event.Event);
         }
