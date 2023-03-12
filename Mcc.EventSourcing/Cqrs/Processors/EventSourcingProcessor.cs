@@ -1,7 +1,7 @@
 ﻿using Mcc.Cqrs;
-using Mcc.Cqrs.Commands;
 using Mcc.Ddd;
 using Mcc.Di;
+using Mcc.EventSourcing.Exceptions;
 using Mcc.EventSourcing.Validations;
 using Mcc.ServiceBus;
 
@@ -17,13 +17,51 @@ public class EventSourcingProcessor : Processor, IEventSourcingProcessor
     {
         var type = typeof(INotificationHandler<>).MakeGenericType(command.GetType());
 
-        var notifications = new List<Task>();
+        var tasks = new List<Task>();
 
-        List<dynamic> handlers = Container.GetInstances(type).ToList();
+        var handlers = Container.GetInstances(type).ToList();
 
-        handlers.ForEach(h => notifications.Add(h.HandleAsync((dynamic)command, cancellationToken, metadata)));
+        if (handlers.Count == 0)
+        {
+            throw new NoNotificationHandlerException($"No notificationHandler For type '{type.AssemblyQualifiedName}'");
+        }
 
-        return Task.WhenAll(notifications);
+        foreach (var handler in handlers)
+        {
+            var methods = handler.GetType().GetMethods().Where(x => x.Name == "HandleAsync").ToList();
+
+            var method = methods.First();
+
+            if (methods.Count() > 1)
+            {
+                foreach (var methodInfo in methods)
+                {
+                    var methodParameters = methodInfo.GetParameters();
+
+                    if (methodParameters[0].ParameterType == command.GetType())
+                    {
+                        method = methodInfo;
+                        break;
+                    }
+                }
+            }
+
+            var parameters = new object[]
+            {
+                command,
+                cancellationToken,
+                metadata
+            };
+
+            var i = method.Invoke(handler, parameters);
+
+            if (i is Task task)
+            {
+                tasks.Add(task);
+            }
+        }
+
+        return Task.WhenAll(tasks.ToArray());
     }
 
     public ValidationStates ExecuteEvent<TEntity, TEvent>(TEntity entity, TEvent @event, bool shouldValidate)
