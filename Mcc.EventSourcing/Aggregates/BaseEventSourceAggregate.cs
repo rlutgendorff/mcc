@@ -1,5 +1,4 @@
-﻿using Mcc.Cqrs.Commands;
-using Mcc.Ddd;
+﻿using Mcc.Ddd;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
 using Mcc.EventSourcing.Cqrs.Processors;

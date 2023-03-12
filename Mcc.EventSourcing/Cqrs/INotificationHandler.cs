@@ -1,5 +1,4 @@
-﻿using Mcc.Cqrs.Commands;
-using Mcc.ServiceBus;
+﻿using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Cqrs;
 
