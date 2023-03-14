@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using Mcc.Di;
+using Mcc.EventSourcing.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
@@ -11,7 +13,7 @@ namespace Mcc.ServiceBus.RabbitMq;
 public class RabbitMqEventReceiver : IEventReceiver
 {
 
-    private List<Func<EventReceivedEventArgs,Task>> actions = new();
+    private readonly List<Func<EventReceivedEventArgs,Task>> actions = new();
 
     public RabbitMqEventReceiver(
         RabbitMqChannelFactory factory, 
@@ -50,11 +52,9 @@ public class RabbitMqEventReceiver : IEventReceiver
                 channel.BasicNack(ea.DeliveryTag, false, true);
             }
         };
-
-        foreach (var queue in options.Value.Queues ?? new List<RabbitMqQueue>())
-        {
-            channel.BasicConsume(queue: queue.Name, autoAck: false, consumer: consumer);
-        }
+        
+        channel.BasicConsume(queue: Assembly.GetEntryAssembly().GetName().Name, autoAck: false, consumer: consumer);
+        
     }
 
 

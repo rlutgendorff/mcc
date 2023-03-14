@@ -1,8 +1,8 @@
 ﻿using Mcc.EventSourcing.Cqrs.Processors;
-using Mcc.ServiceBus;
 using System.Text.Json;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.Di;
+using Mcc.EventSourcing.ServiceBus;
 
 namespace Mcc.EventSourcing.Services;
 

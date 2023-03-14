@@ -1,10 +1,8 @@
-﻿using System.Data;
-using Marten;
+﻿using Marten;
 using Marten.Events;
-using Marten.Services;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Aggregates;
-using Mcc.ServiceBus;
+using Mcc.EventSourcing.ServiceBus;
 using IEventStore = Mcc.EventSourcing.Stores.IEventStore;
 
 namespace Mcc.Repository.MartenDb;

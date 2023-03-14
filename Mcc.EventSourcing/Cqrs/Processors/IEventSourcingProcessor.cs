@@ -1,7 +1,7 @@
 ﻿using Mcc.Cqrs;
 using Mcc.Ddd;
+using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
-using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Cqrs.Processors;
 

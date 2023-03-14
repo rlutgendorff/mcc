@@ -1,4 +1,4 @@
-﻿namespace Mcc.ServiceBus;
+﻿namespace Mcc.EventSourcing.ServiceBus;
 
 public interface IEventReceiver
 {

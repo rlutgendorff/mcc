@@ -2,8 +2,8 @@
 using Mcc.Ddd;
 using Mcc.Di;
 using Mcc.EventSourcing.Exceptions;
+using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
-using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Cqrs.Processors;
 

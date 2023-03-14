@@ -4,8 +4,8 @@ using Mcc.EventSourcing.Cqrs.Commands;
 using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.EventSourcing.Cqrs.Queries;
 using Mcc.EventSourcing.Extensions;
+using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
-using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Aggregates;
 

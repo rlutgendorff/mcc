@@ -3,10 +3,10 @@ using Mcc.EventSourcing.Aggregates.Services;
 using Mcc.EventSourcing.Cqrs.Commands;
 using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.EventSourcing.Extensions;
+using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Stores;
 using Mcc.Extensions;
 using Mcc.Repository;
-using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Repositories;
 
@@ -33,10 +33,8 @@ public class EventStoreRepository<TEntity> : IRepository<TEntity>
         foreach (var uncommittedEvent in events)
         {
             await _eventStore.AppendEventAsync(uncommittedEvent, cancellationToken);
-            _publisher.Publish(entity.GetType().Name, uncommittedEvent.Event.GetType().Name,
-                new Message { Data = uncommittedEvent.Event.ToJson(), Metadata = uncommittedEvent.Metadata });
+            _publisher.Publish(uncommittedEvent);
         }
-
 
         _eventService.ClearUncommittedEvents(entity);
     }
