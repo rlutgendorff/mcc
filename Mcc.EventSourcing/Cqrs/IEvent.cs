@@ -1,5 +1,7 @@
-﻿namespace Mcc.EventSourcing.Cqrs;
+﻿using Mcc.Cqrs.Commands;
 
-public interface IEvent
+namespace Mcc.EventSourcing.Cqrs;
+
+public interface IEvent : ICommand
 {
 }

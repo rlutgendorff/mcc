@@ -2,5 +2,5 @@
 
 public interface IProjectionRebuilder<TEntity>
 {
-    Task RebuildAsync(Action<EventWrapper> action, CancellationToken cancellationToken);
+    Task RebuildAsync(Func<EventWrapper, Task> action, CancellationToken cancellationToken);
 }
