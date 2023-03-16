@@ -20,8 +20,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
         ChangeTracker.AddUncommittedEvent(delete, new EventMetadata { Id = Id, TypeName = delete.GetType().AssemblyQualifiedName});
     }
 
-    //TODO make protected
-    public void AddEvent(IEvent @event)
+    protected void AddEvent(IEvent @event)
     {
         var metadata = new EventMetadata { Id = Id, TypeName = @event.GetType().AssemblyQualifiedName};
 
