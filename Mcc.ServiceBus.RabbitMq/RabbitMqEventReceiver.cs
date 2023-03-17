@@ -4,7 +4,6 @@ using System.Text.Json;
 using Mcc.Di;
 using Mcc.EventSourcing.ServiceBus;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -17,7 +16,6 @@ public class RabbitMqEventReceiver : IEventReceiver
 
     public RabbitMqEventReceiver(
         RabbitMqChannelFactory factory, 
-        IOptions<RabbitMqOptions> options, 
         IDependencyContainer container, 
         ILogger<RabbitMqEventReceiver> logger)
     {

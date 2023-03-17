@@ -3,6 +3,7 @@ using Marten.Events;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Aggregates;
 using Mcc.EventSourcing.ServiceBus;
+using Mcc.EventSourcing.Snapshots;
 using IEventStore = Mcc.EventSourcing.Stores.IEventStore;
 
 namespace Mcc.Repository.MartenDb;
@@ -13,12 +14,12 @@ public class MartenDbEventStore : IEventStore
 
     public MartenDbEventStore(IDocumentStore store)
     {
-        _session = store.LightweightSession();
+        _session = store.OpenSession(DocumentTracking.None);
     }
 
-    public async Task<IEnumerable<EventWrapper>> ReadEventsAsync(AggregateId id, CancellationToken cancellationToken)
+    public async Task<IEnumerable<EventWrapper>> ReadEventsAsync(Guid id, CancellationToken cancellationToken)
     {
-        var events = await _session.Events.FetchStreamAsync(id.Id, token: cancellationToken);
+        var events = await _session.Events.FetchStreamAsync(id, token: cancellationToken);
 
         var result = new List<EventWrapper>();
 
@@ -35,16 +36,15 @@ public class MartenDbEventStore : IEventStore
     public Task AppendEventAsync(EventWrapper @event, CancellationToken cancellationToken)
     {
 
-        if (@event.AggregateVersion != null)
+        if (@event.AggregateVersion > 0)
         {
-            _session.Events.Append(@event.AggregateId.Id, (long)@event.AggregateVersion , @event.Event);
+            _session.Events.Append(@event.AggregateId, @event.AggregateVersion + 1, @event.Event);
         }
         else
         {
-            _session.Events.StartStream(@event.AggregateId.Id, @event.Event);
+            _session.Events.StartStream(@event.AggregateId, @event.Event);
         }
 
-        
         return _session.SaveChangesAsync(cancellationToken);
     }
 
@@ -68,21 +68,17 @@ public class MartenDbEventStore : IEventStore
         }, cancellationToken);
     }
 
-    public Task DeleteAsync(AggregateId id, CancellationToken cancellationToken)
+    public Task DeleteAsync(Guid id, CancellationToken cancellationToken)
     {
-        return Task.Run(()=>_session.Delete(id.Id), cancellationToken);
+        return Task.Run(()=>_session.Delete(id), cancellationToken);
     }
 
     private EventWrapper CreateWrapper(IEvent @event)
     {
-        
-
-        var aggregateId = new AggregateId(@event.EventType, @event.StreamId);
-
         var wrapper = new EventWrapper
         {
-            AggregateId = aggregateId,
-            AggregateVersion = (ulong)@event.Version,
+            AggregateId = @event.StreamId,
+            AggregateVersion = @event.Version,
             Event = (EventSourcing.Cqrs.IEvent)@event.Data,
             EventId = @event.Id,
             Metadata = new EventMetadata

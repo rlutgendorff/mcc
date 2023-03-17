@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Mcc.Di;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.ServiceBus.RabbitMq.Attributes;
 using Microsoft.Extensions.Options;
@@ -10,7 +9,6 @@ namespace Mcc.ServiceBus.RabbitMq;
 public class RabbitMqChannelFactory
 {
     private readonly IModel _channel;
-    private IDependencyContainer _dependencyContainer;
 
     public RabbitMqChannelFactory(IOptions<RabbitMqOptions> options)
     {

@@ -13,9 +13,9 @@ public class EventWrapper
 
     public Guid EventId { get; set; }
 
-    public AggregateId AggregateId { get; set; }
+    public Guid AggregateId { get; set; }
 
-    public ulong? AggregateVersion { get; set; }
+    public long AggregateVersion { get; set; }
 
     public IEvent Event { get; set; }
 

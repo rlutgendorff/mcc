@@ -2,8 +2,6 @@
 using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
 using Mcc.EventSourcing.Cqrs.Processors;
-using Mcc.EventSourcing.Cqrs.Queries;
-using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
 
@@ -11,7 +9,7 @@ namespace Mcc.EventSourcing.Aggregates;
 
 public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggregate
 {
-    public ulong? Version { get; protected set; }
+    public long? Version { get; set; }
 
     internal InternalChangeTracker ChangeTracker { get; private set; }
 
@@ -28,37 +26,10 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
         ChangeTracker.Apply(wrapper);
     }
 
-    public static TEntity Create<TEntity>(IEventSourcingProcessor processor)
-        where TEntity : BaseEventSourceAggregate, new()
+    internal static void AddChangeTracker<TEntity>(TEntity entity, InternalChangeTracker tracker)
+        where TEntity : BaseEventSourceAggregate
     {
-        var entity = new TEntity
-        {
-            Id = Guid.NewGuid()
-        };
-
-        entity.ChangeTracker = new InternalChangeTracker(processor, entity);
-
-        return entity;
-    }
-
-    public static async Task<TEntity> Load<TEntity>(Guid id, IEventSourcingProcessor processor, CancellationToken token)
-        where TEntity : BaseEventSourceAggregate, new()
-    {
-        var entity = new TEntity
-        {
-            Id = id
-        };
-
-        var events = await processor.Execute(new LoadAggregateEventsQuery { AggregateId = entity.GetId() }, token);
-
-        entity.ChangeTracker = new InternalChangeTracker(processor, entity);
-
-        foreach (var @event in events)
-        {
-            entity.ChangeTracker.Apply(@event, false);
-        }
-
-        return entity;
+        entity.ChangeTracker = tracker;
     }
 
     internal class InternalChangeTracker
@@ -102,13 +73,11 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
         {
             var wrapper = new EventWrapper
             {
-                AggregateId = new AggregateId(_entity.GetType(), _entity.Id),
-                AggregateVersion = ++_entity.Version,
+                AggregateId =  _entity.Id,
+                AggregateVersion = ++_entity.Version ?? 0,
                 Event = command,
                 Metadata = metadata
             };
-
-            _entity.Version ??= 0;
 
             _events.Add(wrapper);
             return wrapper;

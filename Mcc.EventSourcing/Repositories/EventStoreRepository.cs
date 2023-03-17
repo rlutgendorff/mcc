@@ -1,9 +1,8 @@
 ﻿using Mcc.EventSourcing.Aggregates;
 using Mcc.EventSourcing.Aggregates.Services;
 using Mcc.EventSourcing.Cqrs.Commands;
-using Mcc.EventSourcing.Cqrs.Processors;
-using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.ServiceBus;
+using Mcc.EventSourcing.Snapshots;
 using Mcc.EventSourcing.Stores;
 using Mcc.Extensions;
 using Mcc.Repository;
@@ -14,16 +13,16 @@ public class EventStoreRepository<TEntity> : IRepository<TEntity>
     where TEntity : BaseEventSourceAggregate
 {
     private readonly IEventStore _eventStore;
-    private readonly IEventSourcingProcessor _processor;
     private readonly IEventPublisher _publisher;
     private readonly AggregateEventsService _eventService;
+    private readonly ISnapshotService<TEntity> _snapshotService;
 
-    public EventStoreRepository(IEventStore eventStore, IEventSourcingProcessor processor, AggregateEventsService eventService, IEventPublisher publisher)
+    public EventStoreRepository(IEventStore eventStore, AggregateEventsService eventService, IEventPublisher publisher, ISnapshotService<TEntity> snapshotService)
     {
         _eventStore = eventStore;
-        _processor = processor;
         _eventService = eventService;
         _publisher = publisher;
+        _snapshotService = snapshotService;
     }
 
     public async Task SaveAsync(TEntity entity, CancellationToken cancellationToken)
@@ -37,6 +36,7 @@ public class EventStoreRepository<TEntity> : IRepository<TEntity>
         }
 
         _eventService.ClearUncommittedEvents(entity);
+        await _snapshotService.Store(entity, cancellationToken);
     }
 
     public async Task DeleteAsync(TEntity data, CancellationToken cancellationToken)
@@ -47,12 +47,12 @@ public class EventStoreRepository<TEntity> : IRepository<TEntity>
 
         await SaveAsync(data, cancellationToken);
 
-        await _eventStore.DeleteAsync(data.GetId(), cancellationToken);
+        await _eventStore.DeleteAsync(data.Id, cancellationToken);
     }
 
     public async Task<TEntity> GetByIdAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        var events = await _eventStore.ReadEventsAsync(entity.GetId(), cancellationToken);
+        var events = await _eventStore.ReadEventsAsync(entity.Id, cancellationToken);
 
         foreach (var @event in events)
         {
