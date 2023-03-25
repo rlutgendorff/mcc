@@ -49,16 +49,4 @@ public class EventStoreRepository<TEntity> : IRepository<TEntity>
 
         await _eventStore.DeleteAsync(data.Id, cancellationToken);
     }
-
-    public async Task<TEntity> GetByIdAsync(TEntity entity, CancellationToken cancellationToken)
-    {
-        var events = await _eventStore.ReadEventsAsync(entity.Id, cancellationToken);
-
-        foreach (var @event in events)
-        {
-            _eventService.Apply(entity, @event, false);
-        }
-
-        return entity;
-    }
 }

@@ -8,6 +8,6 @@ public class DeleteNotification : IEvent
     public Guid Id { get; set; }
 }
 
-public class DeleteNotification<TEntity> : DeleteNotification, ICommand
+public class DeleteNotification<TEntity> : DeleteNotification
     where TEntity : BaseAggregate
 { }
