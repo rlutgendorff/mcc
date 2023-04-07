@@ -13,7 +13,11 @@ namespace Mcc.Repository.Ef.SqlServer.EntityConfigurations
 
             if (IsTemporal)
                 builder.ToTable(x => x.IsTemporal());
+
+            CustomConfiguration(builder);
         }
+
+        protected virtual void CustomConfiguration(EntityTypeBuilder<TEntity> builder) { }
 
         public abstract bool IsTemporal { get; }
     }
