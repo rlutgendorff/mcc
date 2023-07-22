@@ -27,6 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.ServiceBus.RabbitMq", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mcc.ServiceBus.RabbitMq.Attributes", "Mcc.ServiceBus.RabbitMq.Attributes\Mcc.ServiceBus.RabbitMq.Attributes.csproj", "{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{9B23E80F-0C8C-4D79-B888-F02DAD8FEBC3}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.Props = Directory.Build.Props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.Repository.Ef.SqlServer.Di", "Mcc.Repository.Ef.SqlServer.Di\Mcc.Repository.Ef.SqlServer.Di.csproj", "{E026C4D4-282A-4C92-A522-964CCAEA3EA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +88,10 @@ Global
 		{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E026C4D4-282A-4C92-A522-964CCAEA3EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E026C4D4-282A-4C92-A522-964CCAEA3EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E026C4D4-282A-4C92-A522-964CCAEA3EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E026C4D4-282A-4C92-A522-964CCAEA3EA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
