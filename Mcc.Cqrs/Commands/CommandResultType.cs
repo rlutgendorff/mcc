@@ -1,8 +1,8 @@
-﻿namespace Mcc.Cqrs.Commands;
+﻿//namespace Mcc.Cqrs.Commands;
 
-public enum CommandResultType
-{
-    Ok,
-    Failed,
-    Exception
-}
+//public enum CommandResultType
+//{
+//    Ok,
+//    Failed,
+//    Exception
+//}

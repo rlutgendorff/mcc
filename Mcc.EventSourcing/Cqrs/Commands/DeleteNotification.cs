@@ -1,9 +1,9 @@
-﻿using Mcc.Cqrs.Commands;
-using Mcc.Ddd;
+﻿using Mcc.Ddd;
+using MediatR;
 
 namespace Mcc.EventSourcing.Cqrs.Commands;
 
-public class DeleteNotification : IEvent
+public class DeleteNotification : INotification
 {
     public Guid Id { get; set; }
 }

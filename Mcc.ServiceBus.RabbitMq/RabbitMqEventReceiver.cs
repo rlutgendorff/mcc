@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using Mcc.Di;
 using Mcc.EventSourcing.ServiceBus;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -16,7 +16,7 @@ public class RabbitMqEventReceiver : IEventReceiver
 
     public RabbitMqEventReceiver(
         RabbitMqChannelFactory factory, 
-        IDependencyContainer container, 
+        IServiceProvider container, 
         ILogger<RabbitMqEventReceiver> logger)
     {
         var channel = factory.Create();

@@ -1,6 +1,6 @@
-﻿namespace Mcc.Cqrs.Queries;
+﻿//namespace Mcc.Cqrs.Queries;
 
-public interface IQuery<TResult>
-{
+//public interface IQuery<TResult>
+//{
 
-}
+//}

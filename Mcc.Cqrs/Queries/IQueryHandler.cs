@@ -1,7 +1,7 @@
-﻿namespace Mcc.Cqrs.Queries;
+﻿//namespace Mcc.Cqrs.Queries;
 
-public interface IQueryHandler<TQuery, TResult>
-    where TQuery : IQuery<TResult>
-{
-    Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
-}
+//public interface IQueryHandler<TQuery, TResult>
+//    where TQuery : IQuery<TResult>
+//{
+//    Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
+//}

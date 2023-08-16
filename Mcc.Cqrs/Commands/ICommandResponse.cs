@@ -1,10 +1,10 @@
-﻿namespace Mcc.Cqrs.Commands;
+﻿//namespace Mcc.Cqrs.Commands;
 
-public interface ICommandResponse<TEntity>
-{
-    CommandResultType ResultType { get; }
+//public interface ICommandResponse<TEntity>
+//{
+//    CommandResultType ResultType { get; }
 
-    Exception? Exception { get; }
+//    Exception? Exception { get; }
 
-    TEntity? Result { get; }
-}
+//    TEntity? Result { get; }
+//}

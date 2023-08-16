@@ -1,5 +1,4 @@
-﻿using Mcc.EventSourcing.Aggregates;
-using Mcc.EventSourcing.Cqrs;
+﻿using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.ServiceBus;
 
 namespace Mcc.EventSourcing;

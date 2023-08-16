@@ -1,9 +1,8 @@
 ﻿using Mcc.Ddd;
-using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
-using Mcc.EventSourcing.Cqrs.Processors;
 using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
+using MediatR;
 
 namespace Mcc.EventSourcing.Aggregates;
 
@@ -18,7 +17,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
         ChangeTracker.AddUncommittedEvent(delete, new EventMetadata { Id = Id, TypeName = delete.GetType().AssemblyQualifiedName});
     }
 
-    protected void AddEvent(IEvent @event)
+    protected void AddEvent(INotification @event)
     {
         var metadata = new EventMetadata { Id = Id, TypeName = @event.GetType().AssemblyQualifiedName};
 
@@ -35,18 +34,20 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
     internal class InternalChangeTracker
     {
         private readonly IList<EventWrapper> _events;
-        private readonly IEventSourcingProcessor _processor;
+        private readonly IMediator _mediator;
         private readonly BaseEventSourceAggregate _entity;
 
-        public InternalChangeTracker(IEventSourcingProcessor processor, BaseEventSourceAggregate entity)
+        public InternalChangeTracker(BaseEventSourceAggregate entity, IMediator mediator)
         {
             _entity = entity;
-            _processor = processor;
+            _mediator = mediator;
             _events = new List<EventWrapper>();
         }
 
         public void Apply(EventWrapper @event, bool shouldValidate = true)
         {
+            _mediator.
+
             ValidationStates validation = _processor.ExecuteEvent((dynamic)_entity, (dynamic)@event.Event, shouldValidate);
 
             if (validation.IsValid)
@@ -69,7 +70,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
             _events.Clear();
         }
 
-        public EventWrapper AddUncommittedEvent(IEvent command, EventMetadata metadata)
+        public EventWrapper AddUncommittedEvent(INotification command, EventMetadata metadata)
         {
             var wrapper = new EventWrapper
             {
