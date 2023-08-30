@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Mcc.Di\Mcc.Di.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
