@@ -1,25 +1,21 @@
-﻿using Mcc.Cqrs;
-using Mcc.Ddd;
-using Mcc.Di;
+﻿using Mcc.Ddd;
+using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Exceptions;
 using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
+using Mcc.Cqrs;
 
-namespace Mcc.EventSourcing.Cqrs.Processors;
+namespace Mcc.EventSourcing.Extensions;
 
-public class EventSourcingProcessor : Processor, IEventSourcingProcessor
+public static class ProcessorExtensions
 {
-    public EventSourcingProcessor(IDependencyContainer container) : base(container)
-    {
-    }
-
-    public Task Notify(IEvent command, CancellationToken cancellationToken, EventMetadata metadata)
+    public static Task Notify(this IProcessor processor, IEvent command, CancellationToken cancellationToken, EventMetadata metadata)
     {
         var type = typeof(INotificationHandler<>).MakeGenericType(command.GetType());
 
         var tasks = new List<Task>();
 
-        var handlers = Container.GetInstances(type).ToList();
+        var handlers = processor.Container.GetInstances(type).ToList();
 
         if (handlers.Count == 0)
         {
@@ -64,30 +60,34 @@ public class EventSourcingProcessor : Processor, IEventSourcingProcessor
         return Task.WhenAll(tasks.ToArray());
     }
 
-    public ValidationStates ExecuteEvent<TEntity, TEvent>(TEntity entity, TEvent @event, bool shouldValidate)
+    public static ValidationStates ExecuteEvent<TEntity, TEvent>(this IProcessor processor, TEntity entity, TEvent @event, bool shouldValidate)
         where TEntity : class, IAggregate
         where TEvent : class, IEvent
     {
+
+        var dynamicEntity = (dynamic)entity;
+        var dynamicEvent = (dynamic)@event;
+
         var validations = new ValidationStates();
 
         if (shouldValidate)
         {
-            var validators = Container.GetInstances<IPreExecuteValidator<TEntity, TEvent>>();
+            var validators = processor.Container.GetInstances<IPreExecuteValidator<TEntity, TEvent>>();
 
             foreach (var preExecuteValidator in validators)
             {
-                if (preExecuteValidator.ShouldValidate(entity, @event))
+                if (preExecuteValidator.ShouldValidate(dynamicEntity, dynamicEvent))
                 {
-                    validations.Add(preExecuteValidator.Validate(entity, @event));
+                    validations.Add(preExecuteValidator.Validate(dynamicEntity, dynamicEvent));
                 }
             }
         }
 
         if (validations.IsValid)
         {
-            var handler = Container.GetInstance<IEventHandler<TEntity, TEvent>>();
+            var handler = processor.Container.GetInstance<IEventHandler<TEntity, TEvent>>();
 
-            handler.Handle(entity, @event);
+            handler.Handle(dynamicEntity, dynamicEvent);
         }
 
         return validations;

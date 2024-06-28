@@ -1,7 +1,8 @@
-﻿using Mcc.Ddd;
+﻿using Mcc.Cqrs;
+using Mcc.Ddd;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
-using Mcc.EventSourcing.Cqrs.Processors;
+using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
 
@@ -35,10 +36,10 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
     internal class InternalChangeTracker
     {
         private readonly IList<EventWrapper> _events;
-        private readonly IEventSourcingProcessor _processor;
+        private readonly IProcessor _processor;
         private readonly BaseEventSourceAggregate _entity;
 
-        public InternalChangeTracker(IEventSourcingProcessor processor, BaseEventSourceAggregate entity)
+        public InternalChangeTracker(IProcessor processor, BaseEventSourceAggregate entity)
         {
             _entity = entity;
             _processor = processor;
@@ -47,7 +48,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
 
         public void Apply(EventWrapper @event, bool shouldValidate = true)
         {
-            ValidationStates validation = _processor.ExecuteEvent((dynamic)_entity, (dynamic)@event.Event, shouldValidate);
+            ValidationStates validation = _processor.ExecuteEvent(_entity, @event.Event, shouldValidate);
 
             if (validation.IsValid)
             {

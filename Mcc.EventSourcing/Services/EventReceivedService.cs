@@ -1,17 +1,18 @@
-﻿using Mcc.EventSourcing.Cqrs.Processors;
-using System.Text.Json;
+﻿using System.Text.Json;
+using Mcc.Cqrs;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.Di;
+using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.ServiceBus;
 
 namespace Mcc.EventSourcing.Services;
 
 public class EventReceivedService
 {
-    private readonly IEventSourcingProcessor _processor;
+    private readonly IProcessor _processor;
     private readonly ITypeConverter _converter;
 
-    public EventReceivedService(IEventReceiver receiver, IEventSourcingProcessor processor, ITypeConverter converter)
+    public EventReceivedService(IEventReceiver receiver, IProcessor processor, ITypeConverter converter)
     {
         _processor = processor;
         _converter = converter;

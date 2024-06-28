@@ -6,12 +6,12 @@ namespace Mcc.Cqrs;
 
 public class Processor : IProcessor
 {
-    protected readonly IDependencyContainer Container;
-
     public Processor(IDependencyContainer container)
     {
         Container = container;
     }
+
+    public IDependencyContainer Container { get; }
 
     public Task<TResult> Execute<TResult>(IQuery<TResult> query, CancellationToken cancellationToken)
     {

@@ -1,4 +1,4 @@
-﻿using Mcc.EventSourcing.Cqrs.Processors;
+﻿using Mcc.Cqrs;
 using Mcc.EventSourcing.Snapshots;
 using Mcc.EventSourcing.Stores;
 
@@ -9,9 +9,9 @@ public class AggregateService<TEntity>
 {
     private readonly ISnapshotService<TEntity> _snapshotService;
     private readonly IEventStore _eventStore;
-    private readonly IEventSourcingProcessor _processor;
+    private readonly IProcessor _processor;
 
-    public AggregateService(ISnapshotService<TEntity> snapshotService, IEventStore eventStore, IEventSourcingProcessor processor)
+    public AggregateService(ISnapshotService<TEntity> snapshotService, IEventStore eventStore, IProcessor processor)
     {
         _snapshotService = snapshotService;
         _eventStore = eventStore;
