@@ -10,18 +10,16 @@ namespace Mcc.EventSourcing.Services;
 public class EventReceivedService
 {
     private readonly IProcessor _processor;
-    private readonly ITypeConverter _converter;
 
-    public EventReceivedService(IEventReceiver receiver, IProcessor processor, ITypeConverter converter)
+    public EventReceivedService(IEventReceiver receiver, IProcessor processor)
     {
         _processor = processor;
-        _converter = converter;
         receiver.Subscibe(Receiver_EventReceived);
     }
 
     private Task Receiver_EventReceived(EventReceivedEventArgs e)
     {
-        var type = _converter.CreateType(e.Message.Metadata.TypeName);
+        var type = Type.GetType(e.Message.Metadata.TypeName);
 
         var command = (IEvent)JsonSerializer.Deserialize(e.Message.Data, type)!;
 
