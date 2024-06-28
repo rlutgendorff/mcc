@@ -1,7 +1,5 @@
 ﻿using Mcc.Ddd;
 using Mcc.EventSourcing.Cqrs;
-using Mcc.EventSourcing.Exceptions;
-using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Validations;
 using Mcc.Cqrs;
 using Mcc.Cqrs.Events;

@@ -12,8 +12,4 @@
     <ProjectReference Include="..\Mcc.Repository\Mcc.Repository.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>
