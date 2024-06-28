@@ -1,8 +1,7 @@
-﻿using Mcc.Cqrs.Events;
+﻿using Mcc.Cqrs.Events.Validations;
 using Mcc.Ddd;
-using Mcc.EventSourcing.Validations;
 
-namespace Mcc.EventSourcing.Cqrs;
+namespace Mcc.Cqrs.Events;
 
 public interface IPreExecuteValidator<in TEntity, in TEvent>
     where TEntity : IAggregate

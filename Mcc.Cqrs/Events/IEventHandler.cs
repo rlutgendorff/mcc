@@ -1,7 +1,6 @@
-﻿using Mcc.Cqrs.Events;
-using Mcc.Ddd;
+﻿using Mcc.Ddd;
 
-namespace Mcc.EventSourcing.Cqrs;
+namespace Mcc.Cqrs.Events;
 
 public interface IEventHandler<in TEntity, in TEvent>
     where TEntity : class, IAggregate

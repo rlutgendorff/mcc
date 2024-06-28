@@ -1,4 +1,4 @@
-﻿namespace Mcc.EventSourcing.Validations;
+﻿namespace Mcc.Cqrs.Events.Validations;
 
 public class ValidationStates
 {

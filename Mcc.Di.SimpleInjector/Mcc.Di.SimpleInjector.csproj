@@ -7,15 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <None Remove="Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SimpleInjector" Version="5.4.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Mcc.Di\Mcc.Di.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

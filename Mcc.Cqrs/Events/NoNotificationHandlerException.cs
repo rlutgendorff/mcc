@@ -1,4 +1,4 @@
-﻿namespace Mcc.EventSourcing.Exceptions;
+﻿namespace Mcc.Cqrs.Events;
 
 public class NoNotificationHandlerException : ApplicationException
 {

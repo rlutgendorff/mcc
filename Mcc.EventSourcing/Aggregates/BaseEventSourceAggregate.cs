@@ -1,11 +1,10 @@
 ﻿using Mcc.Cqrs;
 using Mcc.Cqrs.Events;
+using Mcc.Cqrs.Events.Validations;
 using Mcc.Ddd;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
-using Mcc.EventSourcing.Extensions;
 using Mcc.EventSourcing.ServiceBus;
-using Mcc.EventSourcing.Validations;
 
 namespace Mcc.EventSourcing.Aggregates;
 
@@ -49,7 +48,7 @@ public abstract class BaseEventSourceAggregate : BaseAggregate, IEventSourceAggr
 
         public void Apply(EventWrapper @event, bool shouldValidate = true)
         {
-            ValidationStates validation = _processor.ExecuteEvent(_entity, @event.Event, shouldValidate);
+            ValidationStates validation = _processor.ExecuteEvent((dynamic)_entity, @event.Event, shouldValidate);
 
             if (validation.IsValid)
             {

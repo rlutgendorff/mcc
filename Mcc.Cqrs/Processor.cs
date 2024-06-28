@@ -3,7 +3,8 @@ using Mcc.Cqrs.Events;
 using Mcc.Cqrs.Queries;
 using Mcc.Di;
 using System.Diagnostics;
-using Mcc.EventSourcing.Exceptions;
+using Mcc.Cqrs.Events.Validations;
+using Mcc.Ddd;
 
 namespace Mcc.Cqrs;
 
@@ -79,5 +80,35 @@ public class Processor : IProcessor
         }
 
         return Task.WhenAll(tasks.ToArray());
+    }
+
+    public ValidationStates ExecuteEvent<TEntity, TEvent>(TEntity entity, TEvent @event, bool shouldValidate)
+        where TEntity : class, IAggregate
+        where TEvent : class, IEvent
+    {
+
+        var validations = new ValidationStates();
+
+        if (shouldValidate)
+        {
+            var validators = Container.GetInstances<IPreExecuteValidator<TEntity, TEvent>>();
+
+            foreach (var preExecuteValidator in validators)
+            {
+                if (preExecuteValidator.ShouldValidate(entity, @event))
+                {
+                    validations.Add(preExecuteValidator.Validate(entity, @event));
+                }
+            }
+        }
+
+        if (validations.IsValid)
+        {
+            var handler = Container.GetInstance<IEventHandler<TEntity, TEvent>>();
+
+            handler.Handle(entity, @event);
+        }
+
+        return validations;
     }
 }
