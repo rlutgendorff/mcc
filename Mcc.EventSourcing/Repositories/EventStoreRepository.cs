@@ -1,11 +1,11 @@
 ﻿using Mcc.EventSourcing.Aggregates;
 using Mcc.EventSourcing.Aggregates.Services;
 using Mcc.EventSourcing.Cqrs.Commands;
-using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Snapshots;
 using Mcc.EventSourcing.Stores;
 using Mcc.Extensions;
 using Mcc.Repository;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Repositories;
 

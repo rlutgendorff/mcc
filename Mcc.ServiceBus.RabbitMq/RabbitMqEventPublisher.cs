@@ -3,7 +3,6 @@ using System.Text;
 using Mcc.Cqrs.Events;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Cqrs;
-using Mcc.EventSourcing.ServiceBus;
 using Mcc.Extensions;
 using Mcc.ServiceBus.RabbitMq.Attributes;
 using RabbitMQ.Client;

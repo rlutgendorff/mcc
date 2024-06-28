@@ -2,9 +2,8 @@
 using Mcc.Cqrs.Events;
 using Mcc.Cqrs.Events.Validations;
 using Mcc.Ddd;
-using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.Cqrs.Commands;
-using Mcc.EventSourcing.ServiceBus;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Aggregates;
 

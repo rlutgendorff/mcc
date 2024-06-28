@@ -1,5 +1,6 @@
 ﻿using Mcc.EventSourcing.Stores;
 using Mcc.Repository.Databases;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Projections;
 

@@ -1,9 +1,6 @@
 ﻿using Mcc.Cqrs.Events;
-using Mcc.EventSourcing.Aggregates;
-using Mcc.EventSourcing.Cqrs;
-using Mcc.EventSourcing.ServiceBus;
 
-namespace Mcc.EventSourcing;
+namespace Mcc.ServiceBus;
 
 public class EventWrapper
 {

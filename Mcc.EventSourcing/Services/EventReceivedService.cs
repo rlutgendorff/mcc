@@ -3,7 +3,7 @@ using Mcc.Cqrs;
 using Mcc.Cqrs.Events;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.Di;
-using Mcc.EventSourcing.ServiceBus;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Services;
 

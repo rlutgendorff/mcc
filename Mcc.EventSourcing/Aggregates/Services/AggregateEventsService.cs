@@ -1,4 +1,6 @@
-﻿namespace Mcc.EventSourcing.Aggregates.Services;
+﻿using Mcc.ServiceBus;
+
+namespace Mcc.EventSourcing.Aggregates.Services;
 
 public class AggregateEventsService
 {

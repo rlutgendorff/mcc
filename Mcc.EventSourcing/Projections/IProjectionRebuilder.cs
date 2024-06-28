@@ -1,4 +1,6 @@
-﻿namespace Mcc.EventSourcing.Projections;
+﻿using Mcc.ServiceBus;
+
+namespace Mcc.EventSourcing.Projections;
 
 public interface IProjectionRebuilder<TEntity>
 {

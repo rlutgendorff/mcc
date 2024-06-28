@@ -1,4 +1,5 @@
 ﻿using Mcc.EventSourcing.Aggregates;
+using Mcc.ServiceBus;
 
 namespace Mcc.EventSourcing.Stores;
 

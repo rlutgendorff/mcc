@@ -2,7 +2,6 @@
 using System.Text;
 using System.Text.Json;
 using Mcc.Di;
-using Mcc.EventSourcing.ServiceBus;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;

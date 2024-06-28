@@ -1,6 +1,6 @@
-﻿
-using Mcc.Cqrs.Events;
-using Mcc.EventSourcing.ServiceBus;
+﻿using Mcc.Cqrs.Events;
+
+namespace Mcc.ServiceBus;
 
 public class Message
 {

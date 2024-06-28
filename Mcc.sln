@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution 
 		Directory.Build.Props = Directory.Build.Props
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcc.ServiceBus", "Mcc.ServiceBus\Mcc.ServiceBus.csproj", "{FFADC760-5C25-48BC-8F8F-78EFE3B82C0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4460AF9-9699-4E6F-9045-DCE724DE8CEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFADC760-5C25-48BC-8F8F-78EFE3B82C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFADC760-5C25-48BC-8F8F-78EFE3B82C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFADC760-5C25-48BC-8F8F-78EFE3B82C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFADC760-5C25-48BC-8F8F-78EFE3B82C0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

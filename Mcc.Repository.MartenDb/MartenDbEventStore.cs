@@ -1,9 +1,6 @@
 ﻿using Marten;
 using Mcc.Cqrs.Events;
-using Mcc.EventSourcing;
-using Mcc.EventSourcing.Aggregates;
-using Mcc.EventSourcing.ServiceBus;
-using Mcc.EventSourcing.Snapshots;
+using Mcc.ServiceBus;
 using IEvent = Marten.Events.IEvent;
 using IEventStore = Mcc.EventSourcing.Stores.IEventStore;
 
