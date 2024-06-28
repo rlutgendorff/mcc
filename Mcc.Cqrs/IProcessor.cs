@@ -15,7 +15,7 @@ public interface IProcessor
 
     Task<ICommandResponse<TResponse>> Execute<TResponse>(ICommand<TResponse> command, CancellationToken cancellationToken);
 
-    Task Notify(IEvent command, CancellationToken cancellationToken, EventMetadata metadata);
+    Task Notify(IEvent command, EventMetadata metadata, CancellationToken cancellationToken);
 
     ValidationStates ExecuteEvent<TEntity, TEvent>(TEntity entity, TEvent @event, bool shouldValidate)
         where TEntity : class, IAggregate

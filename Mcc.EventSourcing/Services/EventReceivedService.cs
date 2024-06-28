@@ -25,6 +25,6 @@ public class EventReceivedService
 
         var command = (IEvent)JsonSerializer.Deserialize(e.Message.Data, type)!;
 
-        return _processor.Notify(command, CancellationToken.None, e.Message.Metadata);
+        return _processor.Notify(command, e.Message.Metadata, CancellationToken.None);
     }
 }

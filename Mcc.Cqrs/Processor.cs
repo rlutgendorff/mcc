@@ -31,7 +31,7 @@ public class Processor : IProcessor
         return handler.HandleAsync((dynamic)command, cancellationToken);
     }
 
-    public Task Notify(IEvent command, CancellationToken cancellationToken, EventMetadata metadata)
+    public Task Notify(IEvent command, EventMetadata metadata, CancellationToken cancellationToken)
     {
         var type = typeof(INotificationHandler<>).MakeGenericType(command.GetType());
 
