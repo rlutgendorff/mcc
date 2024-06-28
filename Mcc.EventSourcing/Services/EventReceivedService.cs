@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using Mcc.Cqrs;
+using Mcc.Cqrs.Events;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.Di;
 using Mcc.EventSourcing.Extensions;

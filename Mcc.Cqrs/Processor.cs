@@ -1,6 +1,9 @@
 ﻿using Mcc.Cqrs.Commands;
+using Mcc.Cqrs.Events;
 using Mcc.Cqrs.Queries;
 using Mcc.Di;
+using System.Diagnostics;
+using Mcc.EventSourcing.Exceptions;
 
 namespace Mcc.Cqrs;
 
@@ -25,5 +28,56 @@ public class Processor : IProcessor
         var handlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
         dynamic handler = Container.GetInstance(handlerType);
         return handler.HandleAsync((dynamic)command, cancellationToken);
+    }
+
+    public Task Notify(IEvent command, CancellationToken cancellationToken, EventMetadata metadata)
+    {
+        var type = typeof(INotificationHandler<>).MakeGenericType(command.GetType());
+
+        var tasks = new List<Task>();
+
+        var handlers = Container.GetInstances(type).ToList();
+
+        if (handlers.Count == 0)
+        {
+            throw new NoNotificationHandlerException($"No notificationHandler For type '{type.AssemblyQualifiedName}'");
+        }
+
+        foreach (var handler in handlers)
+        {
+            var methods = handler.GetType().GetMethods().Where(x => x.Name == "HandleAsync").ToList();
+
+            var method = methods.First();
+
+            if (methods.Count() > 1)
+            {
+                foreach (var methodInfo in methods)
+                {
+                    var methodParameters = methodInfo.GetParameters();
+
+                    if (methodParameters[0].ParameterType == command.GetType())
+                    {
+                        method = methodInfo;
+                        break;
+                    }
+                }
+            }
+
+            var parameters = new object[]
+            {
+                command,
+                cancellationToken,
+                metadata
+            };
+
+            var i = method.Invoke(handler, parameters);
+
+            if (i is Task task)
+            {
+                tasks.Add(task);
+            }
+        }
+
+        return Task.WhenAll(tasks.ToArray());
     }
 }

@@ -1,6 +1,4 @@
-﻿using Mcc.EventSourcing.ServiceBus;
-
-namespace Mcc.EventSourcing.Cqrs;
+﻿namespace Mcc.Cqrs.Events;
 
 public interface INotificationHandler<in TEvent>
     where TEvent : IEvent

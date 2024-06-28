@@ -1,6 +1,6 @@
 ﻿using Mcc.Cqrs.Commands;
 
-namespace Mcc.EventSourcing.Cqrs;
+namespace Mcc.Cqrs.Events;
 
 public interface IEvent : ICommand { }
 

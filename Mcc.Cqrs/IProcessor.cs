@@ -1,4 +1,5 @@
 ﻿using Mcc.Cqrs.Commands;
+using Mcc.Cqrs.Events;
 using Mcc.Cqrs.Queries;
 using Mcc.Di;
 
@@ -11,4 +12,6 @@ public interface IProcessor
     Task<TResult> Execute<TResult>(IQuery<TResult> query, CancellationToken cancellationToken);
 
     Task<ICommandResponse<TResponse>> Execute<TResponse>(ICommand<TResponse> command, CancellationToken cancellationToken);
+
+    Task Notify(IEvent command, CancellationToken cancellationToken, EventMetadata metadata);
 }

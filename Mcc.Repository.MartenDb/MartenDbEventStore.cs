@@ -1,9 +1,10 @@
 ﻿using Marten;
-using Marten.Events;
+using Mcc.Cqrs.Events;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Aggregates;
 using Mcc.EventSourcing.ServiceBus;
 using Mcc.EventSourcing.Snapshots;
+using IEvent = Marten.Events.IEvent;
 using IEventStore = Mcc.EventSourcing.Stores.IEventStore;
 
 namespace Mcc.Repository.MartenDb;
@@ -79,7 +80,7 @@ public class MartenDbEventStore : IEventStore
         {
             AggregateId = @event.StreamId,
             AggregateVersion = @event.Version,
-            Event = (EventSourcing.Cqrs.IEvent)@event.Data,
+            Event = (Mcc.Cqrs.Events.IEvent)@event.Data,
             EventId = @event.Id,
             Metadata = new EventMetadata
             {

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Text;
+using Mcc.Cqrs.Events;
 using Mcc.EventSourcing;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.EventSourcing.ServiceBus;

@@ -1,4 +1,4 @@
-﻿namespace Mcc.EventSourcing.ServiceBus;
+﻿namespace Mcc.Cqrs.Events;
 
 public class EventMetadata
 {

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Mcc.Cqrs.Events;
 using Mcc.EventSourcing.Cqrs;
 using Mcc.ServiceBus.RabbitMq.Attributes;
 using Microsoft.Extensions.Options;
